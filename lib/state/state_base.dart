@@ -1,21 +1,21 @@
-abstract class CustomState {
-  const CustomState();
+abstract class BaseState {
+  const BaseState();
 }
 
-class onStateInitial extends CustomState {
+class onStateInitial extends BaseState {
   const onStateInitial();
 }
 
-class onStateLoading extends CustomState {
+class onStateLoading extends BaseState {
   final bool isDismisable;
   const onStateLoading({this.isDismisable = true});
 }
 
-class onStateNoAuth extends CustomState {
+class onStateNoAuth extends BaseState {
   const onStateNoAuth();
 }
 
-class onStateError extends CustomState {
+class onStateError extends BaseState {
   final String message;
   const onStateError(this.message);
 
@@ -30,7 +30,7 @@ class onStateError extends CustomState {
   int get hashCode => message.hashCode;
 }
 
-class onStateSpecificError extends CustomState {
+class onStateSpecificError extends BaseState {
   final int errorCode;
   final String title;
   final String message;

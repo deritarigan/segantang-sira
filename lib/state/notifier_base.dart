@@ -2,10 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:segantang_sira/segantang_sira.dart';
 
-class CustomNotifier extends StateNotifier<CustomState> {
-  final Ref ref;
-  late CancelToken cancelToken;
-  CustomNotifier(CustomState initState, this.ref) : super(initState) {}
+class BaseNotifier extends StateNotifier<BaseState> {
+  CancelToken? cancelToken;
+  BaseNotifier(BaseState initState) : super(initState) {}
   // void doHandleDefaultResponse<T extends BaseResponse>(
   //   Response<dynamic> response,
   //   Function(T) onSuccessResponse,

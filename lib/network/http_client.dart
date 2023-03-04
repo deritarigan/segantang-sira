@@ -1,14 +1,14 @@
-part of http;
-// final httpProvider = Provider((_) => HttpClient());
-// final cancelTokenProvider = Provider((_) => CancelToken());
+// ignore_for_file: avoid_print
 
-class HttpClient {
+part of http;
+
+class BaseHttpClient {
   late Dio _client;
-  HttpClient({
-    required GlobalKey<NavigatorState> navigatorKey,
-    List<Interceptor>? interceptor,
-  }) {
-    _client = Dio();
+  BaseHttpClient(
+      {GlobalKey<NavigatorState>? navigatorKey,
+      List<Interceptor>? interceptor,
+      BaseOptions? option}) {
+    _client = Dio(option);
     if (interceptor != null) {
       interceptor.forEach((element) {
         _client.interceptors.add(element);
@@ -23,8 +23,10 @@ class HttpClient {
           },
           shakeThresholdGravity: 5,
         );
+        if (navigatorKey != null) {
+          alice.setNavigatorKey(navigatorKey);
+        }
 
-        alice.setNavigatorKey(navigatorKey);
         _client.interceptors.add(_getDioInterceptor(alice.getDioInterceptor()));
       }
     });
@@ -35,7 +37,7 @@ class HttpClient {
     Options? options,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? queryParameters,
-    required CancelToken cancelToken,
+    CancelToken? cancelToken,
   }) {
     if (headers != null) {
       _client.options.headers = headers;
@@ -52,7 +54,7 @@ class HttpClient {
       {dynamic body,
       Map<String, dynamic>? headers,
       Map<String, dynamic>? queryParameters,
-      required CancelToken cancelToken}) {
+      CancelToken? cancelToken}) {
     if (headers != null) {
       _client.options.headers = headers;
     }
@@ -69,7 +71,7 @@ class HttpClient {
           Options? options,
           Map<String, dynamic>? headers,
           Map<String, dynamic>? queryParameters,
-          required CancelToken cancelToken}) =>
+          CancelToken? cancelToken}) =>
       _client.put(url,
           data: body,
           options: options,
@@ -81,7 +83,7 @@ class HttpClient {
           Options? options,
           Map<String, dynamic>? headers,
           Map<String, dynamic>? queryParameters,
-          required CancelToken cancelToken}) =>
+          CancelToken? cancelToken}) =>
       _client.delete(url,
           options: options,
           queryParameters: queryParameters,
