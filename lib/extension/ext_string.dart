@@ -37,6 +37,22 @@ extension StringExtension on String {
     return '';
   }
 
+  String changeFormatDate(
+      {String inputFormat = serverDateFormat,
+      String outPutFormat = clientDateFormat,
+      bool isUtc = false}) {
+    String result = '-';
+    try {
+      final DateFormat dateFormatInput = DateFormat(inputFormat);
+      final DateFormat dateFormatOutput = DateFormat(outPutFormat);
+      final DateTime time = dateFormatInput.parse(this, isUtc).toLocal();
+      result = dateFormatOutput.format(time);
+    } catch (e) {
+      log('ERROR::CHANGE_DATE_FORMAT => $e');
+    }
+    return result;
+  }
+
   bool validateIsUrl() {
     return Uri.parse(this).isAbsolute;
   }

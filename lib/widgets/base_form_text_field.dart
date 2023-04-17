@@ -52,7 +52,7 @@ class BaseFormTextField extends StatelessWidget {
           if (label.isNotEmpty)
             Text(
               label,
-              style: labelStyle ?? const TextStyle(fontSize: 16),
+              style: labelStyle ?? Theme.of(context).textTheme.labelMedium,
             ),
           if (label.isNotEmpty)
             SizedBox(

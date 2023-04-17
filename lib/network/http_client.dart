@@ -9,6 +9,12 @@ class BaseHttpClient {
       List<Interceptor>? interceptor,
       BaseOptions? option}) {
     _client = Dio(option);
+    (_client.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+        (HttpClient client) {
+      client.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      return client;
+    };
     if (interceptor != null) {
       interceptor.forEach((element) {
         _client.interceptors.add(element);
@@ -97,24 +103,19 @@ Interceptor _getDioInterceptor(AliceDioInterceptor aliceDioInterceptor) {
       headers += '| $key: $value';
     });
 
-    print(
-        '┌------------------------------------------------------------------------------');
-    print('''| [DIO] Request: ${options.method} ${options.uri}
+    log('┌------------------------------------------------------------------------------');
+    log('''| [DIO] Request: ${options.method} ${options.uri}
     | ${json.encode(options.data)}
     | Headers:\n$headers''');
-    print(
-        '├------------------------------------------------------------------------------');
+    log('├------------------------------------------------------------------------------');
     aliceDioInterceptor.onRequest(options, handler);
   }, onResponse: (Response response, handler) async {
-    print(
-        '| [DIO] Response [code ${response.statusCode}]: ${json.encode(response.data)}');
-    print(
-        '└------------------------------------------------------------------------------');
+    log('| [DIO] Response [code ${response.statusCode}]: ${json.encode(response.data)}');
+    log('└------------------------------------------------------------------------------');
     aliceDioInterceptor.onResponse(response, handler);
   }, onError: (DioError error, handler) async {
-    print('| [DIO] Error: ${error.error}: ${error.response}');
-    print(
-        '└------------------------------------------------------------------------------');
+    log('| [DIO] Error: ${error.error}: ${error.response}');
+    log('└------------------------------------------------------------------------------');
     aliceDioInterceptor.onError(error, handler);
   });
 }

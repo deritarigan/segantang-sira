@@ -2,15 +2,16 @@ part of http;
 
 class SecurityInterceptor extends Interceptor {
   late final String pubKey;
-  SecurityInterceptor({required this.pubKey});
+  String? tokenKey;
+  SecurityInterceptor({required this.pubKey, this.tokenKey});
   @override
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     final timeStamp =
         (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString();
     String token = '';
-    if (options.headers.containsKey('Authorization')) {
-      token = (await FlutterKeychain.get(key: '')) ?? '';
+    if (options.headers.containsKey('Authorization') && tokenKey != null) {
+      token = (await FlutterKeychain.get(key: tokenKey!)) ?? '';
     }
 
     var sign = '';

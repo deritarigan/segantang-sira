@@ -79,7 +79,7 @@ class BaseButtonWidget extends StatelessWidget {
         key: key,
         height: defaultButtonSize?.height,
         minWidth: defaultButtonSize?.width ?? width,
-        color: fillColor ?? Theme.of(context).primaryColor,
+        color: fillColor ?? Theme.of(context).buttonTheme.colorScheme?.primary,
         textColor: textColor,
         disabledColor: defaultDisabledColor,
         disabledTextColor: disabledTextColor,
@@ -217,7 +217,7 @@ class BaseButtonWidget extends StatelessWidget {
 
   Color? get defaultDisabledColor => disabledColor ?? Colors.grey;
   Color? get defaultDisabledTextColor => disabledTextColor ?? Colors.blue;
-  double get defaultCorner => corner ?? 100;
+  double get defaultCorner => corner ?? 8;
   double get defaultIconSpacing => icon != null ? iconSpacing ?? 4 : 0;
   Color defaultBorderColor(BuildContext context) => onPressed != null
       ? (borderColor ?? Theme.of(context).primaryColor)

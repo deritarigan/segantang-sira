@@ -1,11 +1,13 @@
 library http;
 
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:alice/alice.dart';
 import 'package:alice/core/alice_dio_interceptor.dart';
 import 'package:alice/utils/shake_detector.dart';
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_keychain/flutter_keychain.dart';

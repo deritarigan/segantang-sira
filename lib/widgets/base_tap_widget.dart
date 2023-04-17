@@ -21,6 +21,7 @@ class BaseTapWidget extends StatelessWidget {
           child: Material(
             borderRadius: borderRadius,
             color: Colors.transparent,
+            clipBehavior: Clip.hardEdge,
             child: InkWell(borderRadius: borderRadius, onTap: onTap),
           ),
         )

@@ -122,11 +122,15 @@ class _BaseTextFieldState extends State<BaseTextField> {
                 const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.0),
-              borderSide: const BorderSide(style: BorderStyle.none),
+              borderSide: const BorderSide(
+                  style: BorderStyle.solid,
+                  color: Color.fromRGBO(208, 213, 221, 1)),
             ),
             disabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.0),
-              borderSide: const BorderSide(style: BorderStyle.none),
+              borderSide: const BorderSide(
+                  style: BorderStyle.solid,
+                  color: Color.fromRGBO(208, 213, 221, 1)),
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.0),
